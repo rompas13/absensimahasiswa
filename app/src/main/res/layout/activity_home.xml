@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/homeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    tools:context=".HomeActivity">
+
+    <!-- Header -->
+
+    <!-- Tombol menu utama -->
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#DDDDDD"
+        android:gravity="center"
+        android:text="Absensi Mahasiswa"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:backgroundTint="#000080"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/btnKehadiran"
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:text="Kehadiran"
+            android:background="@drawable/button"
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp" />
+
+        <Button
+            android:id="@+id/btnSakit"
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:text="Sakit"
+            android:background="@drawable/button"
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp" />
+
+        <Button
+            android:id="@+id/btnIzin"
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:text="Izin"
+            android:background="@drawable/button"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Bottom Navigation Placeholder -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:background="#DDDDDD"
+        android:backgroundTint="#000080"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/nav_profil"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:contentDescription="Profil"
+            android:src="@drawable/ikon_profil"
+            app:tint="@android:color/white"/>
+
+        <ImageView
+            android:id="@+id/nav_home"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:contentDescription="Home"
+            android:src="@drawable/ikon_home"
+            app:tint="@android:color/white" />
+
+        <ImageView
+            android:id="@+id/nav_history"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:src="@drawable/ikon_history"
+            android:contentDescription="Riwayat"
+            app:tint="@android:color/white"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Memberikan warna hitam pada border (garis tepi) -->
+    <stroke
+        android:color="#000000"
+        android:width="2dp" />
+
+    <!-- Mengatur sudut melengkung pada keempat sudut -->
+    <corners android:radius="10dp" />
+
+    <!-- Padding untuk memberikan jarak di dalam shape -->
+    <padding
+        android:left="16dp"
+        android:top="8dp"
+        android:right="16dp"
+        android:bottom="8dp" />
+</shape>
