@@ -6,13 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".KehadiranActivity">
 
-    <!-- Tombol Kembali -->
+    <!-- Tombol Back -->
+    <Button
+        android:id="@+id/button_back"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/ic_back_arrow" />
 
     <!-- Header -->
     <TextView
         android:id="@+id/tvHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:background="#000080"
         android:gravity="center"
         android:padding="16dp"
@@ -21,31 +28,29 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <!-- Scrollable Content -->
+    <!-- Konten Scroll -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_above="@id/bottomNavigation"
         android:layout_below="@id/tvHeader"
+        android:layout_above="@id/bottomNavigation"
         android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="24dp">
+            android:orientation="vertical">
 
-            <!-- Nama Mahasiswa -->
+            <!-- Nama -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nama"
-                android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:gravity="center" />
 
-            <TextView
+            <EditText
                 android:id="@+id/text_view_nama_mahasiswa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -61,17 +66,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="NIM"
-                android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:gravity="center" />
 
-            <TextView
+            <EditText
                 android:id="@+id/text_view_nim"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="24dp"
                 android:background="@drawable/border_radius"
                 android:padding="12dp"
                 android:text="NIM"
@@ -81,11 +84,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:text="Mata Kuliah (Nama Dosen)"
-                android:textColor="#000000"
                 android:textSize="16sp"
-                android:gravity="center"
-                android:layout_marginTop="16dp" />
+                android:gravity="center" />
 
             <EditText
                 android:id="@+id/edit_text_mata_kuliah"
@@ -94,18 +96,16 @@
                 android:hint="Masukkan Matakuliah"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/border_radius"
-                android:inputType="text"
                 android:padding="12dp" />
 
-            <!-- Tanggal Masuk -->
+            <!-- Tanggal -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:text="Tanggal Masuk"
-                android:textColor="#000000"
                 android:textSize="16sp"
-                android:gravity="center"
-                android:layout_marginTop="16dp" />
+                android:gravity="center" />
 
             <EditText
                 android:id="@+id/edit_text_tanggal_masuk"
@@ -119,15 +119,14 @@
                 android:inputType="none"
                 android:padding="12dp" />
 
-            <!-- Jam Masuk -->
+            <!-- Jam -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:text="Jam Masuk"
-                android:textColor="#000000"
                 android:textSize="16sp"
-                android:gravity="center"
-                android:layout_marginTop="16dp" />
+                android:gravity="center" />
 
             <EditText
                 android:id="@+id/edit_text_jam_masuk"
@@ -141,7 +140,7 @@
                 android:inputType="none"
                 android:padding="12dp" />
 
-            <!-- Button Hadir -->
+            <!-- Tombol Hadir -->
             <Button
                 android:id="@+id/button_hadir"
                 android:layout_width="match_parent"
@@ -191,5 +190,4 @@
             android:contentDescription="Riwayat"
             app:tint="@android:color/white" />
     </LinearLayout>
-
 </RelativeLayout>

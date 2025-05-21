@@ -1,9 +1,8 @@
 package com.example.absensimahasiswa;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,13 +14,12 @@ public class ProfilActivity extends AppCompatActivity {
     private TextView tvNama, tvNim, tvSemester, tvProdi, tvJurusan;
     private Button btnKeluar;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
 
-        // Initialize views
+        // Inisialisasi View
         tvNama = findViewById(R.id.tv_nama);
         tvNim = findViewById(R.id.tv_nim);
         tvSemester = findViewById(R.id.tv_semester);
@@ -29,20 +27,21 @@ public class ProfilActivity extends AppCompatActivity {
         tvJurusan = findViewById(R.id.tv_jurusan);
         btnKeluar = findViewById(R.id.btn_keluar);
 
-        // Set user data (this would normally come from database or session)
-        // For example:
-        setUserData("Refrilly", "12345678", "4", "Teknik Elektro", "Teknik Informatika");
+        // Ambil nama dan nim dari SharedPreferences
+        SharedPreferences preferences = getSharedPreferences("UserData", MODE_PRIVATE);
+        String nama = preferences.getString("nama", "Nama Tidak Diketahui");
+        String nim = preferences.getString("nim", "NIM Tidak Diketahui");
 
-        // Set logout button click listener
-        btnKeluar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle logout logic
-                logout();
-            }
-        });
+        // Isi manual untuk semester, prodi, jurusan
+        String semester = "4";
+        String prodi = "Teknik Elektro";
+        String jurusan = "Teknik Informatika";
 
-        // Setup bottom navigation
+        // Set data ke TextView
+        setUserData(nama, nim, semester, prodi, jurusan);
+
+        btnKeluar.setOnClickListener(v -> logout());
+
         setupBottomNavigation();
     }
 
@@ -55,13 +54,12 @@ public class ProfilActivity extends AppCompatActivity {
     }
 
     private void logout() {
-        // Clear user session/data
-        // For example:
-        // SharedPreferences.Editor editor = getSharedPreferences("user_session", MODE_PRIVATE).edit();
-        // editor.clear();
-        // editor.apply();
+        // Bersihkan data user di SharedPreferences saat logout
+        SharedPreferences.Editor editor = getSharedPreferences("UserData", MODE_PRIVATE).edit();
+        editor.clear();
+        editor.apply();
 
-        // Navigate to login screen
+        // Pindah ke LoginActivity dan hapus riwayat activity
         Intent intent = new Intent(ProfilActivity.this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
@@ -69,35 +67,23 @@ public class ProfilActivity extends AppCompatActivity {
     }
 
     private void setupBottomNavigation() {
-        // Find bottom navigation views
         ImageView navProfile = findViewById(R.id.nav_profil);
         ImageView navHome = findViewById(R.id.nav_home);
         ImageView navHistory = findViewById(R.id.nav_history);
 
-        // Already in Profile activity, highlight profile icon or do nothing
-        navProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Already in Profile activity, do nothing
-            }
+        navProfile.setOnClickListener(v -> {
+            // Sudah di profil, tidak perlu action
         });
 
-        navHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to Home activity
-                Intent intent = new Intent(ProfilActivity.this, HomeActivity.class);
-                startActivity(intent);
-            }
+        navHome.setOnClickListener(v -> {
+            Intent intent = new Intent(ProfilActivity.this, HomeActivity.class);
+            startActivity(intent);
         });
 
-        navHistory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to History/List activity
-                Intent intent = new Intent(ProfilActivity.this, ProfilActivity.class);
-                startActivity(intent);
-            }
+        navHistory.setOnClickListener(v -> {
+            // Misal ke HistoryActivity, bukan ProfilActivity lagi
+            Intent intent = new Intent(ProfilActivity.this, RiwayatActivity.class);
+            startActivity(intent);
         });
     }
 }

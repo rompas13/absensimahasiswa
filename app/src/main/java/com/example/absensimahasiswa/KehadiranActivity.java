@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.content.SharedPreferences;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Calendar;
@@ -35,36 +34,26 @@ public class KehadiranActivity extends AppCompatActivity {
         txtTanggal = findViewById(R.id.edit_text_tanggal_masuk);
         txtJam = findViewById(R.id.edit_text_jam_masuk);
         btnSubmit = findViewById(R.id.button_hadir);
+        btnBack = findViewById(R.id.button_back);
 
-        // Ambil data dari SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
-        String nama = sharedPreferences.getString("nama", "");
-        String nim = sharedPreferences.getString("nim", "");
-        String matkul = sharedPreferences.getString("matkul", "");
-
-        // Isi otomatis dan kunci input
-        txtNama.setText(nama);
-        txtNama.setEnabled(false);
-
-        txtNIM.setText(nim);
-        txtNIM.setEnabled(false);
-
-        txtMatkul.setText(matkul);
-        txtMatkul.setEnabled(false);
+        // Setelah itu baru ambil SharedPreferences dan set text
+        SharedPreferences preferences = getSharedPreferences("UserData", MODE_PRIVATE);
+        txtNama.setText(preferences.getString("nama", ""));
+        txtNIM.setText(preferences.getString("nim", ""));
+        txtMatkul.setText(preferences.getString("matkul", ""));
 
 
 
-        // DatePicker dengan tanggal hari ini sebagai default
+        // DatePicker
         Calendar calendar = Calendar.getInstance();
         txtTanggal.setOnClickListener(v -> {
             DatePickerDialog datePickerDialog = new DatePickerDialog(KehadiranActivity.this, (view, year, month, dayOfMonth) -> {
-                // Tampilkan dalam format dd/MM/yyyy supaya user nyaman
                 txtTanggal.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
             }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
             datePickerDialog.show();
         });
 
-        // TimePicker dengan waktu sekarang sebagai default
+        // TimePicker
         txtJam.setOnClickListener(v -> {
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
             int minute = calendar.get(Calendar.MINUTE);
@@ -77,6 +66,9 @@ public class KehadiranActivity extends AppCompatActivity {
         });
 
         btnSubmit.setOnClickListener(view -> {
+            String nama = txtNama.getText().toString().trim();
+            String nim = txtNIM.getText().toString().trim();
+            String matkul = txtMatkul.getText().toString().trim();
             String tanggalInput = txtTanggal.getText().toString().trim();
             String jam = txtJam.getText().toString().trim();
             String status = "Hadir";
@@ -84,7 +76,6 @@ public class KehadiranActivity extends AppCompatActivity {
             if (nama.isEmpty() || nim.isEmpty() || matkul.isEmpty() || tanggalInput.isEmpty() || jam.isEmpty()) {
                 Toast.makeText(KehadiranActivity.this, "Lengkapi semua data!", Toast.LENGTH_SHORT).show();
             } else {
-                // Ubah format tanggal dari dd/MM/yyyy ke yyyy-MM-dd
                 SimpleDateFormat fromUser = new SimpleDateFormat("d/M/yyyy");
                 SimpleDateFormat mySqlFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String tanggalFormatted = "";
@@ -95,7 +86,7 @@ public class KehadiranActivity extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                     Toast.makeText(KehadiranActivity.this, "Format tanggal salah!", Toast.LENGTH_SHORT).show();
-                    return; // stop proses submit jika error format tanggal
+                    return;
                 }
 
                 insertKehadiran(nama, nim, matkul, jam, tanggalFormatted, status);
@@ -110,7 +101,7 @@ public class KehadiranActivity extends AppCompatActivity {
     }
 
     private void insertKehadiran(String nama, String nim, String matkul, String jam, String tanggal, String status) {
-        String url = "http://10.0.2.2/andro/insert_kehadiran.php"; // Ganti dengan IP server kamu
+        String url = "http://10.0.2.2/andro/insert_kehadiran.php";
 
         new Thread(() -> {
             try {
