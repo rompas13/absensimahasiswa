@@ -1,129 +1,140 @@
 package com.example.absensimahasiswa;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
+import android.content.SharedPreferences;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Calendar;
+import java.util.HashMap;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 public class KehadiranActivity extends AppCompatActivity {
 
-    private EditText editTextNamaMahasiswa;
-    private EditText editTextNIM;
-    private EditText editTextMataKuliah;
-    private EditText editTextTanggalMasuk;
-    private EditText editTextJamMasuk;
-    private Button buttonHadir;
+    EditText txtNama, txtNIM, txtMatkul, txtTanggal, txtJam;
+    Button btnSubmit, btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kehadiran);
 
-        // Initialize views
-        editTextNamaMahasiswa = findViewById(R.id.edit_text_nama_mahasiswa);
-        editTextNIM = findViewById(R.id.edit_text_nim);
-        editTextMataKuliah = findViewById(R.id.edit_text_mata_kuliah);
-        editTextTanggalMasuk = findViewById(R.id.edit_text_tanggal_masuk);
-        editTextJamMasuk = findViewById(R.id.edit_text_jam_masuk);
-        buttonHadir = findViewById(R.id.button_hadir);
+        txtNama = findViewById(R.id.text_view_nama_mahasiswa);
+        txtNIM = findViewById(R.id.text_view_nim);
+        txtMatkul = findViewById(R.id.edit_text_mata_kuliah);
+        txtTanggal = findViewById(R.id.edit_text_tanggal_masuk);
+        txtJam = findViewById(R.id.edit_text_jam_masuk);
+        btnSubmit = findViewById(R.id.button_hadir);
 
-        // Set current date and time
-        setCurrentDateTime();
+        // Ambil data dari SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+        String nama = sharedPreferences.getString("nama", "");
+        String nim = sharedPreferences.getString("nim", "");
+        String matkul = sharedPreferences.getString("matkul", "");
 
-        // Set up hadir button click listener
-        buttonHadir.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                submitAttendance();
+        // Isi otomatis dan kunci input
+        txtNama.setText(nama);
+        txtNama.setEnabled(false);
+
+        txtNIM.setText(nim);
+        txtNIM.setEnabled(false);
+
+        txtMatkul.setText(matkul);
+        txtMatkul.setEnabled(false);
+
+
+
+        // DatePicker dengan tanggal hari ini sebagai default
+        Calendar calendar = Calendar.getInstance();
+        txtTanggal.setOnClickListener(v -> {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(KehadiranActivity.this, (view, year, month, dayOfMonth) -> {
+                // Tampilkan dalam format dd/MM/yyyy supaya user nyaman
+                txtTanggal.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+            datePickerDialog.show();
+        });
+
+        // TimePicker dengan waktu sekarang sebagai default
+        txtJam.setOnClickListener(v -> {
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+            int minute = calendar.get(Calendar.MINUTE);
+            TimePickerDialog timePickerDialog = new TimePickerDialog(KehadiranActivity.this, (view, hourOfDay, minute1) -> {
+                String formattedMinute = minute1 < 10 ? "0" + minute1 : String.valueOf(minute1);
+                String formattedHour = hourOfDay < 10 ? "0" + hourOfDay : String.valueOf(hourOfDay);
+                txtJam.setText(formattedHour + ":" + formattedMinute);
+            }, hour, minute, true);
+            timePickerDialog.show();
+        });
+
+        btnSubmit.setOnClickListener(view -> {
+            String tanggalInput = txtTanggal.getText().toString().trim();
+            String jam = txtJam.getText().toString().trim();
+            String status = "Hadir";
+
+            if (nama.isEmpty() || nim.isEmpty() || matkul.isEmpty() || tanggalInput.isEmpty() || jam.isEmpty()) {
+                Toast.makeText(KehadiranActivity.this, "Lengkapi semua data!", Toast.LENGTH_SHORT).show();
+            } else {
+                // Ubah format tanggal dari dd/MM/yyyy ke yyyy-MM-dd
+                SimpleDateFormat fromUser = new SimpleDateFormat("d/M/yyyy");
+                SimpleDateFormat mySqlFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String tanggalFormatted = "";
+
+                try {
+                    Date date = fromUser.parse(tanggalInput);
+                    tanggalFormatted = mySqlFormat.format(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    Toast.makeText(KehadiranActivity.this, "Format tanggal salah!", Toast.LENGTH_SHORT).show();
+                    return; // stop proses submit jika error format tanggal
+                }
+
+                insertKehadiran(nama, nim, matkul, jam, tanggalFormatted, status);
             }
         });
 
-        // Set up bottom navigation
-        setupBottomNavigation();
-    }
-
-    private void setCurrentDateTime() {
-        // Get current date
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        String currentDate = dateFormat.format(new Date());
-        editTextTanggalMasuk.setText(currentDate);
-
-        // Get current time
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
-        String currentTime = timeFormat.format(new Date());
-        editTextJamMasuk.setText(currentTime);
-    }
-
-    private void submitAttendance() {
-        // Get input values
-        String namaMahasiswa = editTextNamaMahasiswa.getText().toString().trim();
-        String nim = editTextNIM.getText().toString().trim();
-        String mataKuliah = editTextMataKuliah.getText().toString().trim();
-        String tanggalMasuk = editTextTanggalMasuk.getText().toString().trim();
-        String jamMasuk = editTextJamMasuk.getText().toString().trim();
-
-        // Validate inputs
-        if (namaMahasiswa.isEmpty() || nim.isEmpty() || mataKuliah.isEmpty()) {
-            Toast.makeText(this, "Harap isi semua data", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Here you would typically save the attendance data to database
-        // For now, just show a success message
-        Toast.makeText(this, "Kehadiran berhasil dicatat", Toast.LENGTH_SHORT).show();
-
-        // Optional: Clear the form or navigate to another screen
-        clearForm();
-    }
-
-    private void clearForm() {
-        editTextNamaMahasiswa.setText("");
-        editTextNIM.setText("");
-        editTextMataKuliah.setText("");
-        // Reset date and time to current
-        setCurrentDateTime();
-    }
-
-    private void setupBottomNavigation() {
-        // Find bottom navigation views
-        ImageView navProfile = findViewById(R.id.nav_profil);
-        ImageView navHome = findViewById(R.id.nav_home);
-        ImageView navHistory = findViewById(R.id.nav_history);
-
-        navProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to Profile activity
-                Intent intent = new Intent(KehadiranActivity.this, ProfilActivity.class);
-                startActivity(intent);
-            }
+        btnBack.setOnClickListener(view -> {
+            Intent intent = new Intent(KehadiranActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
         });
+    }
 
-        navHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to Home activity
-                Intent intent = new Intent(KehadiranActivity.this, HomeActivity.class);
-                startActivity(intent);
-            }
-        });
+    private void insertKehadiran(String nama, String nim, String matkul, String jam, String tanggal, String status) {
+        String url = "http://10.0.2.2/andro/insert_kehadiran.php"; // Ganti dengan IP server kamu
 
-        navHistory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to History/List activity
-                Intent intent = new Intent(KehadiranActivity.this, RiwayatActivity.class);
-                startActivity(intent);
+        new Thread(() -> {
+            try {
+                HashMap<String, String> params = new HashMap<>();
+                params.put("nama", nama);
+                params.put("nim", nim);
+                params.put("matkul", matkul);
+                params.put("jam_hadir", jam);
+                params.put("tanggal", tanggal);
+                params.put("status", status);
+
+                String response = RequestHandler.sendPostRequest(url, params);
+
+                runOnUiThread(() -> {
+                    if (response.equalsIgnoreCase("success")) {
+                        Toast.makeText(KehadiranActivity.this, "Kehadiran berhasil dicatat", Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        Toast.makeText(KehadiranActivity.this, "Gagal mencatat kehadiran", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } catch (Exception e) {
+                runOnUiThread(() -> Toast.makeText(KehadiranActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show());
             }
-        });
+        }).start();
     }
 }

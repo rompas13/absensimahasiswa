@@ -57,7 +57,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setupBottomNavigation() {
-        // Find bottom navigation views
         ImageView navProfile = findViewById(R.id.nav_profil);
         ImageView navHome = findViewById(R.id.nav_home);
         ImageView navList = findViewById(R.id.nav_history);
@@ -65,25 +64,25 @@ public class HomeActivity extends AppCompatActivity {
         navProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to Profile activity
-                Intent intent = new Intent(HomeActivity.this, com.example.absensimahasiswa.HomeActivity.class);
+                Intent intent = new Intent(HomeActivity.this, ProfilActivity.class); // UBAH KE ProfilActivity
                 startActivity(intent);
+                finish(); // opsional, agar tidak kembali ke HomeActivity saat back
             }
         });
 
         navHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Already in HomeActivity, do nothing or refresh
+                // Sudah berada di HomeActivity, tidak perlu melakukan apa-apa
             }
         });
 
         navList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to List activity
-                Intent intent = new Intent(HomeActivity.this, com.example.absensimahasiswa.ProfilActivity.class);
+                Intent intent = new Intent(HomeActivity.this, RiwayatActivity.class); // UBAH KE RiwayatActivity
                 startActivity(intent);
+                finish(); // opsional
             }
         });
     }

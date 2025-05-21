@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
             String password = params[1];
             nama = params[2];
             matkul = params[3];
-            String urlLink = "http://10.0.2.2/andro/AkunMahasiswa.php"; // Ganti dengan URL jika menggunakan perangkat nyata
+            String urlLink = "http://10.0.2.2/andro/AkunMahasiswa.php";// Ganti dengan URL jika menggunakan perangkat nyata
 
             try {
                 URL url = new URL(urlLink);

@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".KehadiranActivity">
+
+    <!-- Tombol Kembali -->
 
     <!-- Header -->
     <TextView
@@ -19,10 +21,10 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <!-- Form Container -->
+    <!-- Scrollable Content -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_above="@id/bottomNavigation"
         android:layout_below="@id/tvHeader"
         android:padding="16dp">
@@ -31,27 +33,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="60dp">
+            android:paddingTop="24dp">
 
             <!-- Nama Mahasiswa -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:text="Nama"
                 android:textColor="#000000"
                 android:textSize="16sp"
-                android:gravity="center"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:gravity="center" />
 
-            <EditText
-                android:id="@+id/edit_text_nama_mahasiswa"
+            <TextView
+                android:id="@+id/text_view_nama_mahasiswa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/border_radius"
-                android:inputType="textPersonName"
-                android:padding="12dp" />
+                android:padding="12dp"
+                android:text="Nama Mahasiswa"
+                android:textColor="#000000" />
 
             <!-- NIM -->
             <TextView
@@ -61,18 +63,19 @@
                 android:text="NIM"
                 android:textColor="#000000"
                 android:textSize="16sp"
-                android:gravity="center"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:gravity="center" />
 
-            <EditText
-                android:id="@+id/edit_text_nim"
+            <TextView
+                android:id="@+id/text_view_nim"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="24dp"
                 android:background="@drawable/border_radius"
-                android:inputType="number"
-                android:padding="12dp" />
+                android:padding="12dp"
+                android:text="NIM"
+                android:textColor="#000000" />
 
             <!-- Mata Kuliah -->
             <TextView
@@ -82,12 +85,13 @@
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:gravity="center"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="16dp" />
 
             <EditText
                 android:id="@+id/edit_text_mata_kuliah"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="Masukkan Matakuliah"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/border_radius"
                 android:inputType="text"
@@ -101,12 +105,13 @@
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:gravity="center"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="16dp" />
 
             <EditText
                 android:id="@+id/edit_text_tanggal_masuk"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="Masukkan tanggal masuk"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/border_radius"
                 android:clickable="true"
@@ -122,12 +127,13 @@
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:gravity="center"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="16dp" />
 
             <EditText
                 android:id="@+id/edit_text_jam_masuk"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="Masukkan jam masuk"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/border_radius"
                 android:clickable="true"
@@ -145,11 +151,10 @@
                 android:text="Hadir"
                 android:textColor="#ffffff"
                 android:textSize="18sp" />
-
         </LinearLayout>
     </ScrollView>
 
-    <!-- Bottom Navigation Bar -->
+    <!-- Bottom Navigation -->
     <LinearLayout
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
@@ -164,17 +169,17 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:contentDescription="Profil"
             android:src="@drawable/ikon_profil"
-            app:tint="@android:color/white"/>
+            android:contentDescription="Profil"
+            app:tint="@android:color/white" />
 
         <ImageView
             android:id="@+id/nav_home"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:contentDescription="Home"
             android:src="@drawable/ikon_home"
+            android:contentDescription="Home"
             app:tint="@android:color/white" />
 
         <ImageView
@@ -184,7 +189,7 @@
             android:layout_weight="1"
             android:src="@drawable/ikon_history"
             android:contentDescription="Riwayat"
-            app:tint="@android:color/white"/>
+            app:tint="@android:color/white" />
     </LinearLayout>
 
 </RelativeLayout>

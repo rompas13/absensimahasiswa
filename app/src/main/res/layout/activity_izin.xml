@@ -1,10 +1,188 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Izin">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Header -->
+    <TextView
+        android:id="@+id/tvHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000080"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="Izin"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <!-- Scrollable Form -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/tvHeader"
+        android:layout_above="@id/bottomNavigation"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <!-- Nama Mahasiswa -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nama Mahasiswa"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:id="@+id/tv_nama_mahasiswa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nama Mahasiswa"
+                android:textSize="16sp"
+                android:textColor="#000000" />
+
+            <!-- NIM -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NIM"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/tv_nim"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1234567890"
+                android:textSize="16sp"
+                android:textColor="#000000" />
+
+            <!-- Mata Kuliah -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mata Kuliah (Nama Dosen)"
+                android:layout_marginTop="16dp"/>
+
+            <EditText
+                android:id="@+id/edit_text_mata_kuliah"
+                android:layout_width="match_parent"
+                android:hint="Masukkan Matakuliah"
+                android:layout_height="50dp"
+                android:gravity="top"
+                android:background="@drawable/border_radius"
+                android:padding="12dp"
+                android:inputType="textMultiLine" />
+
+            <!-- Tanggal -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tanggal"
+                android:layout_marginTop="16dp"/>
+
+            <EditText
+                android:id="@+id/edit_text_tanggal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukkan tanggal masuk"
+                android:background="@drawable/border_radius"
+                android:padding="12dp"
+                android:clickable="true"
+                android:focusable="false"
+                android:inputType="none" />
+
+            <!-- Keterangan -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Keterangan"
+                android:layout_marginTop="16dp"/>
+
+            <EditText
+                android:id="@+id/edit_text_keterangan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukkan keterangan"
+                android:background="@drawable/border_radius"
+                android:padding="12dp"
+                android:inputType="text" />
+
+            <!-- Upload Bukti Foto -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bukti"
+                android:layout_marginTop="16dp"/>
+
+            <EditText
+                android:id="@+id/edit_text_bukti"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_radius"
+                android:padding="12dp"
+                android:hint="Upload Foto"
+                android:clickable="true"
+                android:focusable="false"
+                android:inputType="none" />
+
+            <!-- Tombol Izin -->
+            <Button
+                android:id="@+id/button_izin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/button_rounded"
+                android:text="Izin"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Bottom Navigation Bar -->
+    <LinearLayout
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:background="#000080"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/nav_profil"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:contentDescription="Profil"
+            android:src="@drawable/ikon_profil"
+            app:tint="@android:color/black" />
+
+        <ImageView
+            android:id="@+id/nav_home"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:contentDescription="Home"
+            android:src="@drawable/ikon_home"
+            app:tint="@android:color/black" />
+
+        <ImageView
+            android:id="@+id/nav_history"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:src="@drawable/ikon_history"
+            android:contentDescription="Riwayat"
+            app:tint="@android:color/black" />
+    </LinearLayout>
+
+</RelativeLayout>
