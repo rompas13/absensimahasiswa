@@ -39,16 +39,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
 
             <!-- Nama -->
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nama"
-                android:textSize="16sp"
+                android:text="Nama Mahasiswa"
                 android:textStyle="bold"
-                android:gravity="center" />
+                android:layout_marginTop="16dp"/>
 
             <EditText
                 android:id="@+id/text_view_nama_mahasiswa"
@@ -60,15 +60,15 @@
                 android:text="Nama Mahasiswa"
                 android:textColor="#000000" />
 
+
+
             <!-- NIM -->
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:text="NIM"
-                android:textSize="16sp"
                 android:textStyle="bold"
-                android:gravity="center" />
+                android:layout_marginTop="8dp"/>
 
             <EditText
                 android:id="@+id/text_view_nim"
