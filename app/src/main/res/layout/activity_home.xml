@@ -10,20 +10,18 @@
     tools:context=".HomeActivity">
 
     <!-- Header -->
-
-    <!-- Tombol menu utama -->
     <TextView
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="#DDDDDD"
+        android:background="#000080"
         android:gravity="center"
         android:text="Absensi Mahasiswa"
         android:textColor="@android:color/white"
         android:textSize="24sp"
-        android:textStyle="bold"
-        android:backgroundTint="#000080"/>
+        android:textStyle="bold" />
 
+    <!-- Tombol menu utama -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -37,35 +35,38 @@
             android:layout_width="250dp"
             android:layout_height="100dp"
             android:text="Kehadiran"
-            android:background="@drawable/button"
             android:textStyle="bold"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/button"
+            android:textColor="@color/button_text_color_selector" />
 
         <Button
             android:id="@+id/btnSakit"
             android:layout_width="250dp"
             android:layout_height="100dp"
             android:text="Sakit"
-            android:background="@drawable/button"
             android:textStyle="bold"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/button"
+            android:textColor="@color/button_text_color_selector" />
 
         <Button
             android:id="@+id/btnIzin"
             android:layout_width="250dp"
             android:layout_height="100dp"
             android:text="Izin"
+            android:textStyle="bold"
             android:background="@drawable/button"
-            android:textStyle="bold" />
+            android:textColor="@color/button_text_color_selector" />
     </LinearLayout>
 
-    <!-- Bottom Navigation Placeholder -->
+    <!-- Bottom Navigation -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:orientation="horizontal"
-        android:background="#DDDDDD"
         android:backgroundTint="#000080"
+        android:background="#DDDDDD"
         android:gravity="center">
 
         <ImageView
@@ -75,7 +76,7 @@
             android:layout_weight="1"
             android:contentDescription="Profil"
             android:src="@drawable/ikon_profil"
-            app:tint="@android:color/white"/>
+            app:tint="@android:color/white" />
 
         <ImageView
             android:id="@+id/nav_home"
@@ -93,7 +94,7 @@
             android:layout_weight="1"
             android:src="@drawable/ikon_history"
             android:contentDescription="Riwayat"
-            app:tint="@android:color/white"/>
+            app:tint="@android:color/white" />
     </LinearLayout>
 
 </LinearLayout>

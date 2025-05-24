@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Izin">
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    tools:context=".Sakit">
 
-    <!-- Header with Back Button -->
+    <!-- Header -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#000080"
         android:padding="16dp">
 
-        <!-- Back Button -->
         <ImageView
             android:id="@+id/btn_kembali"
             android:layout_width="24dp"
@@ -28,7 +28,6 @@
             android:padding="4dp"
             app:tint="@android:color/white" />
 
-        <!-- Title -->
         <TextView
             android:id="@+id/tvHeader"
             android:layout_width="wrap_content"
@@ -40,7 +39,7 @@
             android:textStyle="bold" />
     </RelativeLayout>
 
-    <!-- ScrollView dengan layout_weight agar memenuhi ruang di antara header dan bottom nav -->
+    <!-- Konten Scroll -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -53,7 +52,7 @@
             android:orientation="vertical"
             android:gravity="center_horizontal">
 
-            <!-- Info Mahasiswa Section -->
+            <!-- Informasi Mahasiswa -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,14 +63,13 @@
                 android:layout_marginBottom="12dp"
                 android:gravity="center" />
 
-            <!-- Nama Mahasiswa -->
+            <!-- Nama -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nama Mahasiswa"
                 android:textStyle="bold"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="4dp" />
+                android:layout_marginTop="8dp" />
 
             <TextView
                 android:id="@+id/tv_nama_mahasiswa"
@@ -90,8 +88,7 @@
                 android:layout_height="wrap_content"
                 android:text="NIM"
                 android:textStyle="bold"
-                android:layout_marginTop="12dp"
-                android:layout_marginStart="4dp" />
+                android:layout_marginTop="12dp" />
 
             <TextView
                 android:id="@+id/tv_nim"
@@ -108,21 +105,21 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Mata Kuliah"
-                android:textStyle="bold"
-                android:layout_marginTop="12dp"
-                android:layout_marginStart="4dp" />
+                android:layout_marginTop="16dp"
+                android:text="Mata Kuliah (Nama Dosen)"
+                android:textSize="16sp"
+                android:gravity="center" />
 
-            <TextView
-                android:id="@+id/tv_matakuliah"
+            <EditText
+                android:id="@+id/edit_text_mata_kuliah"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Loading..."
-                android:textSize="16sp"
-                android:textColor="#000000"
+                android:hint="Masukkan Matakuliah"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/border_radius"
-                android:padding="12dp"
-                android:layout_marginTop="4dp" />
+                android:padding="12dp" />
+
+
 
             <!-- Divider -->
             <View
@@ -132,7 +129,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="16dp" />
 
-            <!-- Form Izin Section -->
+            <!-- Form Sakit -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -147,10 +144,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tanggal Izin"
+                android:text="Tanggal Sakit"
                 android:textStyle="bold"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="4dp" />
+                android:layout_marginTop="8dp" />
 
             <EditText
                 android:id="@+id/edit_text_tanggal"
@@ -160,8 +156,8 @@
                 android:background="@drawable/border_radius"
                 android:padding="12dp"
                 android:layout_marginTop="4dp"
-                android:clickable="true"
                 android:focusable="false"
+                android:clickable="true"
                 android:inputType="none"
                 android:drawableEnd="@android:drawable/ic_menu_today"
                 android:drawablePadding="8dp" />
@@ -172,8 +168,7 @@
                 android:layout_height="wrap_content"
                 android:text="Keterangan/Alasan Sakit"
                 android:textStyle="bold"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="4dp" />
+                android:layout_marginTop="16dp" />
 
             <EditText
                 android:id="@+id/edit_text_keterangan"
@@ -187,20 +182,19 @@
                 android:gravity="top"
                 android:maxLength="500" />
 
-            <!-- Upload Bukti Foto -->
+            <!-- Bukti Surat -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bukti Pendukung"
+                android:text="Surat Keterangan Dokter"
                 android:textStyle="bold"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="4dp" />
+                android:layout_marginTop="16dp" />
 
             <TextView
                 android:id="@+id/edit_text_bukti"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Belum ada foto dipilih"
+                android:text="Belum ada surat dokter dipilih"
                 android:textSize="14sp"
                 android:textColor="#666666"
                 android:background="@drawable/border_radius"
@@ -218,7 +212,7 @@
                 android:layout_marginBottom="8dp"
                 android:background="#f0f0f0"
                 android:scaleType="centerCrop"
-                android:contentDescription="Preview bukti foto"
+                android:contentDescription="Preview surat dokter"
                 android:visibility="gone" />
 
             <Button
@@ -226,21 +220,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="📷 Pilih Foto Bukti"
+                android:text="📷 Upload Surat Dokter"
                 android:background="@drawable/button_rounded"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:padding="12dp" />
 
-            <!-- Tombol Kirim Izin -->
+            <!-- Tombol Kirim -->
             <Button
-                android:id="@+id/button_izin"
+                android:id="@+id/button_sakit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/button_rounded"
-                android:text="✓ Kirim Pengajuan Izin"
+                android:text="✓ Kirim Pengajuan Sakit"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -248,7 +242,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Bottom Navigation Bar -->
+    <!-- Bottom Navigation -->
     <LinearLayout
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
@@ -280,8 +274,8 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:src="@drawable/ikon_history"
             android:contentDescription="Riwayat"
+            android:src="@drawable/ikon_history"
             app:tint="@android:color/white" />
     </LinearLayout>
 </LinearLayout>

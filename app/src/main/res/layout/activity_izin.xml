@@ -1,34 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Izin">
 
-    <!-- Header with Back Button -->
+    <!-- Header -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#000080"
         android:padding="16dp">
 
-        <!-- Back Button -->
         <ImageView
             android:id="@+id/btn_kembali"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
             android:src="@drawable/ic_back_arrow"
             android:contentDescription="Kembali"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="4dp"
-            app:tint="@android:color/white" />
+            android:backgroundtint="@android:color/white" />
 
-        <!-- Title -->
         <TextView
             android:id="@+id/tvHeader"
             android:layout_width="wrap_content"
@@ -36,11 +32,11 @@
             android:layout_centerInParent="true"
             android:text="Pengajuan Izin"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="20sp"/>
     </RelativeLayout>
 
-    <!-- ScrollView dengan layout_weight agar memenuhi ruang di antara header dan bottom nav -->
+    <!-- Konten -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -48,12 +44,12 @@
         android:padding="16dp">
 
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:gravity="center_horizontal">
 
-            <!-- Info Mahasiswa Section -->
+            <!-- Info Mahasiswa -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -61,227 +57,112 @@
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textColor="#000080"
-                android:layout_marginBottom="12dp"
-                android:gravity="center" />
+                android:gravity="center"
+                android:layout_marginBottom="12dp"/>
 
-            <!-- Nama Mahasiswa -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nama Mahasiswa"
-                android:textStyle="bold"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="4dp" />
-
+            <!-- Nama -->
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Nama Mahasiswa" android:textStyle="bold"/>
             <TextView
                 android:id="@+id/tv_nama_mahasiswa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Loading..."
-                android:textSize="16sp"
                 android:textColor="#000000"
                 android:background="@drawable/border_radius"
                 android:padding="12dp"
-                android:layout_marginTop="4dp" />
+                android:text="Loading..."/>
 
             <!-- NIM -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="NIM"
-                android:textStyle="bold"
-                android:layout_marginTop="12dp"
-                android:layout_marginStart="4dp" />
-
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="NIM" android:textStyle="bold" android:layout_marginTop="12dp"/>
             <TextView
                 android:id="@+id/tv_nim"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Loading..."
-                android:textSize="16sp"
                 android:textColor="#000000"
                 android:background="@drawable/border_radius"
                 android:padding="12dp"
-                android:layout_marginTop="4dp" />
+                android:text="Loading..."/>
 
             <!-- Mata Kuliah -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Mata Kuliah"
-                android:textStyle="bold"
-                android:layout_marginTop="12dp"
-                android:layout_marginStart="4dp" />
-
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Mata Kuliah" android:textStyle="bold" android:layout_marginTop="12dp"/>
             <TextView
                 android:id="@+id/tv_matakuliah"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Loading..."
-                android:textSize="16sp"
                 android:textColor="#000000"
                 android:background="@drawable/border_radius"
                 android:padding="12dp"
-                android:layout_marginTop="4dp" />
+                android:text="Loading..."/>
 
-            <!-- Divider -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#CCCCCC"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="16dp" />
+            <!-- Garis pemisah -->
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#CCCCCC" android:layout_marginVertical="16dp"/>
 
-            <!-- Form Izin Section -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Form Pengajuan Izin"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textColor="#000080"
-                android:layout_marginBottom="12dp"
-                android:gravity="center" />
+            <!-- Form Izin -->
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Form Pengajuan Izin" android:textStyle="bold" android:textSize="18sp" android:textColor="#000080" android:gravity="center"/>
 
             <!-- Tanggal -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tanggal Izin"
-                android:textStyle="bold"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="4dp" />
-
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Tanggal Izin" android:textStyle="bold" android:layout_marginTop="8dp"/>
             <EditText
                 android:id="@+id/edit_text_tanggal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Pilih Tanggal"
+                android:focusable="false"
+                android:clickable="true"
                 android:background="@drawable/border_radius"
                 android:padding="12dp"
-                android:layout_marginTop="4dp"
-                android:clickable="true"
-                android:focusable="false"
-                android:inputType="none"
-                android:drawableEnd="@android:drawable/ic_menu_today"
-                android:drawablePadding="8dp" />
+                android:drawableEnd="@android:drawable/ic_menu_today"/>
 
             <!-- Keterangan -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Keterangan/Alasan Izin"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="4dp" />
-
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Keterangan/Alasan Izin" android:textStyle="bold" android:layout_marginTop="16dp"/>
             <EditText
                 android:id="@+id/edit_text_keterangan"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:hint="Masukkan alasan/keterangan izin (contoh: urusan keluarga, dll)"
+                android:hint="Masukkan alasan izin"
                 android:background="@drawable/border_radius"
                 android:padding="12dp"
-                android:layout_marginTop="4dp"
                 android:inputType="textMultiLine"
-                android:gravity="top"
-                android:maxLength="500" />
+                android:gravity="top"/>
 
-            <!-- Upload Bukti Foto -->
+            <!-- Bukti Foto -->
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Bukti Pendukung" android:textStyle="bold" android:layout_marginTop="16dp"/>
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Bukti Pendukung"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="4dp" />
-
-            <TextView
-                android:id="@+id/edit_text_bukti"
+                android:id="@+id/tv_bukti"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Belum ada foto dipilih"
-                android:textSize="14sp"
-                android:textColor="#666666"
                 android:background="@drawable/border_radius"
                 android:padding="12dp"
-                android:layout_marginTop="4dp"
-                android:drawableStart="@android:drawable/ic_menu_camera"
-                android:drawablePadding="8dp"
-                android:gravity="center_vertical" />
+                android:drawableStart="@android:drawable/ic_menu_camera"/>
 
             <ImageView
                 android:id="@+id/image_bukti"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="#f0f0f0"
                 android:scaleType="centerCrop"
-                android:contentDescription="Preview bukti foto"
-                android:visibility="gone" />
+                android:layout_gravity="center"
+                android:visibility="gone"/>
+
 
             <Button
                 android:id="@+id/btn_upload_foto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:text="📷 Pilih Foto Bukti"
                 android:background="@drawable/button_rounded"
                 android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:padding="12dp" />
+                android:layout_marginTop="8dp"/>
 
-            <!-- Tombol Kirim Izin -->
+            <!-- Kirim Izin -->
             <Button
                 android:id="@+id/button_izin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/button_rounded"
                 android:text="✓ Kirim Pengajuan Izin"
+                android:background="@drawable/button_rounded"
                 android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:padding="16dp" />
+                android:layout_marginTop="24dp"/>
         </LinearLayout>
     </ScrollView>
-
-    <!-- Bottom Navigation Bar -->
-    <LinearLayout
-        android:id="@+id/bottomNavigation"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
-        android:background="#000080"
-        android:gravity="center">
-
-        <ImageView
-            android:id="@+id/nav_profil"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:contentDescription="Profil"
-            android:src="@drawable/ikon_profil"
-            app:tint="@android:color/white" />
-
-        <ImageView
-            android:id="@+id/nav_home"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:contentDescription="Home"
-            android:src="@drawable/ikon_home"
-            app:tint="@android:color/white" />
-
-        <ImageView
-            android:id="@+id/nav_history"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:src="@drawable/ikon_history"
-            android:contentDescription="Riwayat"
-            app:tint="@android:color/white" />
-    </LinearLayout>
 </LinearLayout>

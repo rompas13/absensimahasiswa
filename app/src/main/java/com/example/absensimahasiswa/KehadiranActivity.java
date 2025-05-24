@@ -3,20 +3,22 @@ package com.example.absensimahasiswa;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.content.SharedPreferences;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Calendar;
-import java.util.HashMap;
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class KehadiranActivity extends AppCompatActivity {
 
@@ -36,20 +38,17 @@ public class KehadiranActivity extends AppCompatActivity {
         btnSubmit = findViewById(R.id.button_hadir);
         btnBack = findViewById(R.id.button_back);
 
-        // Setelah itu baru ambil SharedPreferences dan set text
         SharedPreferences preferences = getSharedPreferences("UserData", MODE_PRIVATE);
         txtNama.setText(preferences.getString("nama", ""));
         txtNIM.setText(preferences.getString("nim", ""));
         txtMatkul.setText(preferences.getString("matkul", ""));
 
-
-
         // DatePicker
         Calendar calendar = Calendar.getInstance();
         txtTanggal.setOnClickListener(v -> {
-            DatePickerDialog datePickerDialog = new DatePickerDialog(KehadiranActivity.this, (view, year, month, dayOfMonth) -> {
-                txtTanggal.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
-            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+            DatePickerDialog datePickerDialog = new DatePickerDialog(KehadiranActivity.this,
+                    (view, year, month, dayOfMonth) -> txtTanggal.setText(dayOfMonth + "/" + (month + 1) + "/" + year),
+                    calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
             datePickerDialog.show();
         });
 
@@ -57,11 +56,12 @@ public class KehadiranActivity extends AppCompatActivity {
         txtJam.setOnClickListener(v -> {
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
             int minute = calendar.get(Calendar.MINUTE);
-            TimePickerDialog timePickerDialog = new TimePickerDialog(KehadiranActivity.this, (view, hourOfDay, minute1) -> {
-                String formattedMinute = minute1 < 10 ? "0" + minute1 : String.valueOf(minute1);
-                String formattedHour = hourOfDay < 10 ? "0" + hourOfDay : String.valueOf(hourOfDay);
-                txtJam.setText(formattedHour + ":" + formattedMinute);
-            }, hour, minute, true);
+            TimePickerDialog timePickerDialog = new TimePickerDialog(KehadiranActivity.this,
+                    (view, hourOfDay, minute1) -> {
+                        String formattedMinute = minute1 < 10 ? "0" + minute1 : String.valueOf(minute1);
+                        String formattedHour = hourOfDay < 10 ? "0" + hourOfDay : String.valueOf(hourOfDay);
+                        txtJam.setText(formattedHour + ":" + formattedMinute);
+                    }, hour, minute, true);
             timePickerDialog.show();
         });
 
@@ -75,37 +75,39 @@ public class KehadiranActivity extends AppCompatActivity {
 
             if (nama.isEmpty() || nim.isEmpty() || matkul.isEmpty() || tanggalInput.isEmpty() || jam.isEmpty()) {
                 Toast.makeText(KehadiranActivity.this, "Lengkapi semua data!", Toast.LENGTH_SHORT).show();
-            } else {
-                SimpleDateFormat fromUser = new SimpleDateFormat("d/M/yyyy");
-                SimpleDateFormat mySqlFormat = new SimpleDateFormat("yyyy-MM-dd");
-                String tanggalFormatted = "";
-
-                try {
-                    Date date = fromUser.parse(tanggalInput);
-                    tanggalFormatted = mySqlFormat.format(date);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                    Toast.makeText(KehadiranActivity.this, "Format tanggal salah!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                insertKehadiran(nama, nim, matkul, jam, tanggalFormatted, status);
+                return;
             }
+
+            SimpleDateFormat fromUser = new SimpleDateFormat("d/M/yyyy");
+            SimpleDateFormat mySqlFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String tanggalFormatted;
+
+            try {
+                Date date = fromUser.parse(tanggalInput);
+                tanggalFormatted = mySqlFormat.format(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                Toast.makeText(KehadiranActivity.this, "Format tanggal salah!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            insertKehadiran(nama, nim, matkul, jam, tanggalFormatted, status);
         });
 
         btnBack.setOnClickListener(view -> {
-            Intent intent = new Intent(KehadiranActivity.this, MainActivity.class);
+            Intent intent = new Intent(KehadiranActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
         });
+
     }
 
     private void insertKehadiran(String nama, String nim, String matkul, String jam, String tanggal, String status) {
-        String url = "http://10.0.2.2/andro/insert_kehadiran.php";
+        String url = "http://192.168.28.22/andro/input_hadir.php";
 
         new Thread(() -> {
             try {
-                HashMap<String, String> params = new HashMap<>();
+                Map<String, String> params = new HashMap<>();
                 params.put("nama", nama);
                 params.put("nim", nim);
                 params.put("matkul", matkul);
@@ -116,11 +118,18 @@ public class KehadiranActivity extends AppCompatActivity {
                 String response = RequestHandler.sendPostRequest(url, params);
 
                 runOnUiThread(() -> {
-                    if (response.equalsIgnoreCase("success")) {
-                        Toast.makeText(KehadiranActivity.this, "Kehadiran berhasil dicatat", Toast.LENGTH_SHORT).show();
-                        finish();
-                    } else {
-                        Toast.makeText(KehadiranActivity.this, "Gagal mencatat kehadiran", Toast.LENGTH_SHORT).show();
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        String statusRespon = jsonObject.getString("status");
+                        String pesan = jsonObject.getString("message");
+
+                        Toast.makeText(KehadiranActivity.this, pesan, Toast.LENGTH_SHORT).show();
+
+                        if (statusRespon.equalsIgnoreCase("success")) {
+                            finish();
+                        }
+                    } catch (Exception e) {
+                        Toast.makeText(KehadiranActivity.this, "Respon tidak valid: " + response, Toast.LENGTH_LONG).show();
                     }
                 });
             } catch (Exception e) {

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app :cardElevation="2dp">
+    app:cardElevation="4dp"
+    app:cardCornerRadius="8dp">
 
     <LinearLayout
         android:orientation="vertical"
-        android:padding="12dp"
+        android:padding="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -16,24 +18,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nama"
-            android:textStyle="bold"/>
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#000000" />
 
         <TextView
-            android:id="@+id/textNIK"
+            android:id="@+id/text_view_nim"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="NIK"/>
+            android:text="NIM"
+            android:textSize="14sp"
+            android:textColor="#444444"
+            android:layout_marginTop="4dp" />
 
         <TextView
             android:id="@+id/textTanggal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tanggal"/>
+            android:text="Tanggal"
+            android:textSize="14sp"
+            android:textColor="#444444"
+            android:layout_marginTop="4dp" />
 
         <TextView
             android:id="@+id/textStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Status"/>
+            android:text="Status"
+            android:textSize="14sp"
+            android:textColor="#00796B"
+            android:layout_marginTop="6dp"
+            android:textStyle="italic" />
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>

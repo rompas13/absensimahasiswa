@@ -6,8 +6,9 @@
     android:layout_height="match_parent"
     android:padding="24dp">
 
+    <!-- Teks sambutan -->
     <TextView
-        android:id="@+id/textWelcomeMain"
+        android:id="@+id/textWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Main Activity"
@@ -15,4 +16,49 @@
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
+
+    <!-- Layout Kehadiran (tersembunyi secara default) -->
+    <LinearLayout
+        android:id="@+id/layout_kehadiran"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/textWelcome"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Form Kehadiran"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <!-- Tambahkan input form kehadiran di sini -->
+    </LinearLayout>
+
+    <!-- Layout Izin/Sakit (tersembunyi secara default) -->
+    <LinearLayout
+        android:id="@+id/layout_izin_sakit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/layout_kehadiran"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Form Izin/Sakit"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <!-- Tambahkan input form izin/sakit di sini -->
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
