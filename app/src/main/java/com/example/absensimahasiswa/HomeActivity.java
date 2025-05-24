@@ -26,7 +26,7 @@ public class HomeActivity extends AppCompatActivity {
     // Ganti dengan koordinat kampusmu
     private final double TARGET_LATITUDE = 1.2044341;
     private final double TARGET_LONGITUDE = 124.7917969;
-    private final float LOCATION_RADIUS_METERS = 2000; // misalnya 2000 meter = 2 km
+    private final float LOCATION_RADIUS_METERS = 1000; // misalnya 2000 meter = 2 km
 
     private ActivityResultLauncher<String> requestPermissionLauncher;
 

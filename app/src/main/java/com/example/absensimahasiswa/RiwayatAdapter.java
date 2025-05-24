@@ -20,12 +20,12 @@ public class RiwayatAdapter extends RecyclerView.Adapter<RiwayatAdapter.ViewHold
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textNama, textNIM, textTanggal, textStatus;  // perbaiki deklarasi variabel
+        TextView textNama, textNIM, textTanggal, textStatus;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textNama    = itemView.findViewById(R.id.textNama);
-            textNIM     = itemView.findViewById(R.id.text_view_nim);   // ganti textNIK jadi textNIM
+            textNIM     = itemView.findViewById(R.id.text_view_nim);
             textTanggal = itemView.findViewById(R.id.textTanggal);
             textStatus  = itemView.findViewById(R.id.textStatus);
         }
@@ -44,9 +44,24 @@ public class RiwayatAdapter extends RecyclerView.Adapter<RiwayatAdapter.ViewHold
         Riwayat model = riwayatList.get(position);
 
         holder.textNama.setText("Nama   : " + model.getNama());
-        holder.textNIM.setText("NIM    : " + model.getNim());      // ganti getNik() jadi getNim()
+        holder.textNIM.setText("NIM    : " + model.getNim());
         holder.textTanggal.setText("Tanggal: " + model.getTanggal());
         holder.textStatus.setText("Status : " + model.getStatus());
+
+        // 🔽 Ubah warna teks status berdasarkan isi
+        String status = model.getStatus().toLowerCase().trim();
+        switch (status) {
+            case "hadir":
+                holder.textStatus.setTextColor(0xFF4CAF50); // hijau
+                break;
+            case "sakit":
+            case "izin":
+                holder.textStatus.setTextColor(0xFFF44336); // merah
+                break;
+            default:
+                holder.textStatus.setTextColor(0xFF000000); // hitam
+                break;
+        }
     }
 
     @Override

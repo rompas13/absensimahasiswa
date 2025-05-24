@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputFilter;
-import android.text.Spanned;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -12,6 +11,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProfilActivity extends AppCompatActivity {
 
@@ -33,12 +43,11 @@ public class ProfilActivity extends AppCompatActivity {
         etSemester = findViewById(R.id.et_semester);
         etProdi = findViewById(R.id.et_prodi);
         etJurusan = findViewById(R.id.et_jurusan);
-
         navHome = findViewById(R.id.nav_home);
         navHistory = findViewById(R.id.nav_history);
         navProfil = findViewById(R.id.nav_profil);
         btnKeluar = findViewById(R.id.btn_keluar);
-        btnSimpan = findViewById(R.id.btn_simpan);  // Tombol Simpan
+        btnSimpan = findViewById(R.id.btn_simpan);
 
         sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
 
@@ -52,45 +61,42 @@ public class ProfilActivity extends AppCompatActivity {
         // Tampilkan data
         tvNama.setText("Nama: " + nama);
         tvNim.setText("NIM: " + nim);
-
         etSemester.setText(semester);
         etProdi.setText(prodi);
         etJurusan.setText(jurusan);
 
-        // Pasang filter agar etSemester hanya angka
-        etSemester.setFilters(new InputFilter[] { new InputFilter() {
-            @Override
-            public CharSequence filter(CharSequence source, int start, int end,
-                                       Spanned dest, int dstart, int dend) {
-                for (int i = start; i < end; i++) {
-                    if (!Character.isDigit(source.charAt(i))) {
-                        return "";
-                    }
+        // Filter hanya angka untuk semester
+        etSemester.setFilters(new InputFilter[]{(source, start, end, dest, dstart, dend) -> {
+            for (int i = start; i < end; i++) {
+                if (!Character.isDigit(source.charAt(i))) {
+                    return "";
                 }
-                return null;
             }
+            return null;
         }});
 
-        // Tombol Simpan klik: simpan data dan tampilkan Toast
         btnSimpan.setOnClickListener(v -> {
-            saveUserInput();
-            Toast.makeText(ProfilActivity.this, "Data tersimpan", Toast.LENGTH_SHORT).show();
+            saveUserInput(); // Simpan lokal
+            String nimFix = sharedPreferences.getString("nim", "");
+            String semesterFix = etSemester.getText().toString().trim();
+            String prodiFix = etProdi.getText().toString().trim();
+            String jurusanFix = etJurusan.getText().toString().trim();
+
+            updateProfilToServer(nimFix, semesterFix, prodiFix, jurusanFix); // Simpan server
         });
 
         navHome.setOnClickListener(v -> {
-            Intent intent = new Intent(ProfilActivity.this, HomeActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(ProfilActivity.this, HomeActivity.class));
             finish();
         });
 
         navHistory.setOnClickListener(v -> {
-            Intent intent = new Intent(ProfilActivity.this, RiwayatActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(ProfilActivity.this, RiwayatActivity.class));
             finish();
         });
 
         navProfil.setOnClickListener(v -> {
-            // Sudah di Profil, tidak perlu action
+            // Sudah di profil
         });
 
         btnKeluar.setOnClickListener(v -> {
@@ -99,14 +105,40 @@ public class ProfilActivity extends AppCompatActivity {
     }
 
     private void saveUserInput() {
-        String semesterInput = etSemester.getText().toString().trim();
-        String prodiInput = etProdi.getText().toString().trim();
-        String jurusanInput = etJurusan.getText().toString().trim();
-
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("semester", semesterInput);
-        editor.putString("prodi", prodiInput);
-        editor.putString("jurusan", jurusanInput);
+        editor.putString("semester", etSemester.getText().toString().trim());
+        editor.putString("prodi", etProdi.getText().toString().trim());
+        editor.putString("jurusan", etJurusan.getText().toString().trim());
         editor.apply();
+    }
+    private void updateProfilToServer(String nim, String semester, String prodi, String jurusan) {
+        String url = "http://192.168.28.22/andro/update_profil.php"; // Ganti IP jika pakai HP
+
+        StringRequest request = new StringRequest(Request.Method.POST, url,
+                response -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        String status = jsonObject.getString("status");
+                        String message = jsonObject.getString("message");
+                        Toast.makeText(ProfilActivity.this, message, Toast.LENGTH_SHORT).show();
+                    } catch (JSONException e) {
+                        Toast.makeText(ProfilActivity.this, "Gagal parsing respon server", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> Toast.makeText(ProfilActivity.this, "Gagal terhubung ke server", Toast.LENGTH_SHORT).show()
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("nim", nim);
+                params.put("semester", semester);
+                params.put("prodi", prodi);
+                params.put("jurusan", jurusan);
+                return params;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(request);
     }
 }

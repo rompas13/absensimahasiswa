@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -13,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!-- Nama mahasiswa -->
         <TextView
             android:id="@+id/textNama"
             android:layout_width="wrap_content"
@@ -22,6 +24,7 @@
             android:textStyle="bold"
             android:textColor="#000000" />
 
+        <!-- NIM mahasiswa -->
         <TextView
             android:id="@+id/text_view_nim"
             android:layout_width="wrap_content"
@@ -31,6 +34,7 @@
             android:textColor="#444444"
             android:layout_marginTop="4dp" />
 
+        <!-- Tanggal absen -->
         <TextView
             android:id="@+id/textTanggal"
             android:layout_width="wrap_content"
@@ -40,6 +44,8 @@
             android:textColor="#444444"
             android:layout_marginTop="4dp" />
 
+        <!-- Status absen: Hadir/Izin/Sakit, default hijau -->
+        <!-- Status absen: Hadir/Izin/Sakit, default hijau -->
         <TextView
             android:id="@+id/textStatus"
             android:layout_width="wrap_content"
@@ -49,6 +55,8 @@
             android:textColor="#00796B"
             android:layout_marginTop="6dp"
             android:textStyle="italic" />
+
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

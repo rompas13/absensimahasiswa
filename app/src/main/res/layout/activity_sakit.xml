@@ -242,40 +242,48 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Bottom Navigation -->
+    <!-- Bottom Navigation Bar -->
     <LinearLayout
-        android:id="@+id/bottomNavigation"
+        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
+        android:layout_height="56dp"
         android:background="#000080"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="3">
 
         <ImageView
             android:id="@+id/nav_profil"
-            android:layout_width="40dp"
+            android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:contentDescription="Profil"
+            android:contentDescription="@string/nav_profil_desc"
+            android:padding="8dp"
+            android:scaleType="centerInside"
             android:src="@drawable/ikon_profil"
             app:tint="@android:color/white" />
 
         <ImageView
             android:id="@+id/nav_home"
-            android:layout_width="40dp"
+            android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:contentDescription="Home"
+            android:contentDescription="@string/nav_home_desc"
+            android:padding="8dp"
+            android:scaleType="centerInside"
             android:src="@drawable/ikon_home"
             app:tint="@android:color/white" />
 
         <ImageView
             android:id="@+id/nav_history"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:contentDescription="Riwayat"
+            android:contentDescription="@string/nav_history_desc"
+            android:padding="8dp"
+            android:scaleType="centerInside"
             android:src="@drawable/ikon_history"
             app:tint="@android:color/white" />
     </LinearLayout>
+
 </LinearLayout>
