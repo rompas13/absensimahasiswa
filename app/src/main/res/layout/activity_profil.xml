@@ -175,32 +175,38 @@
         android:backgroundTint="#000080"
         android:gravity="center">
 
-        <ImageView
-            android:id="@+id/nav_profil"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:contentDescription="Profil"
-            android:src="@drawable/ikon_profil"
-            app:tint="@android:color/white"/>
+            <ImageView
+                android:id="@+id/nav_profil"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/nav_profil_desc"
+                android:padding="8dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ikon_profil"
+                app:tint="@android:color/white" />
 
-        <ImageView
-            android:id="@+id/nav_home"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:contentDescription="Home"
-            android:src="@drawable/ikon_home"
-            app:tint="@android:color/white" />
+            <ImageView
+                android:id="@+id/nav_home"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/nav_home_desc"
+                android:padding="8dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ikon_home"
+                app:tint="@android:color/white" />
 
-        <ImageView
-            android:id="@+id/nav_history"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:src="@drawable/ikon_history"
-            android:contentDescription="Riwayat"
-            app:tint="@android:color/white"/>
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/nav_history"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/nav_history_desc"
+                android:padding="8dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ikon_history"
+                app:tint="@android:color/white" />
+        </LinearLayout>
 
 </RelativeLayout>

@@ -115,7 +115,7 @@
                 android:minHeight="48dp"
                 android:popupBackground="#FFFFFF"
                 android:spinnerMode="dropdown"
-                android:textSize="20sp" />
+                android:textSize="20dp" />
 
             <!-- password -->
             <EditText
